@@ -1,4 +1,5 @@
 node_modules/
 build/
+mongo-data/
 .env
 .env.production
