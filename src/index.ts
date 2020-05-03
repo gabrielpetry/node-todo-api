@@ -1,13 +1,16 @@
 import fastify from 'fastify'
 import fastifyHelmet from 'fastify-helmet'
 import cors from 'fastify-cors'
+import Database from './database'
+import bookRouter from './routes/bookRouter'
 
 const server = fastify()
+const db = new Database()
+db.SetupDb()
 
 server.register(fastifyHelmet)
 server.register(cors, { origin: '*' })
 
-import bookRouter from './routes/bookRouter'
 bookRouter.map((route) => server.route(route))
 
 server
