@@ -13,7 +13,16 @@ const routes = [
     method: 'POST',
     url: '/api/books',
     schema: {
-      body: bookSchema,
+      body: {
+        required: ['name', 'description'],
+        ...bookSchema,
+      },
+      response: {
+        201: {
+          type: 'null',
+        },
+        ...errors,
+      },
     },
     handler: bookController.store,
   },
