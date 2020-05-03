@@ -4,7 +4,7 @@
 import book from '../models/book'
 
 export default {
-  async getBooks(req, res) {
+  async getBooks(req, reply) {
     return { ok: true }
   },
 
