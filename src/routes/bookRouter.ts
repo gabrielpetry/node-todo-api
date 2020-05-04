@@ -27,4 +27,21 @@ export const CreateBookRouter = (server) => {
     },
     handler: bookController.store,
   })
+
+  server.route({
+    method: 'DELETE',
+    url: '/api/books/:_id',
+    schema: {
+      body: {
+        type: 'null',
+      },
+      response: {
+        204: {
+          type: 'null',
+        },
+        ...errors,
+      },
+    },
+    handler: bookController.delete,
+  })
 }
