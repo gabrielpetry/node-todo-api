@@ -3,6 +3,7 @@ import fastifyHelmet from 'fastify-helmet'
 import cors from 'fastify-cors'
 import Database from './database'
 import { CreateBookRouter } from './routes/bookRouter'
+import { CreateTaskRouter } from './routes/taskRouter'
 
 const server = fastify()
 const db = new Database()
@@ -12,6 +13,7 @@ server.register(fastifyHelmet)
 server.register(cors, { origin: '*' })
 
 // bookRouter.map((route) => server.route(route))
+CreateTaskRouter(server)
 
 CreateBookRouter(server)
 
