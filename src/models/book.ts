@@ -14,9 +14,9 @@ const BookSchema = new Schema(
       default: true,
       type: Boolean,
     },
-    todos: [
+    tasks: [
       {
-        ref: 'Todo',
+        ref: 'Task',
         type: Schema.Types.ObjectId,
       },
     ],

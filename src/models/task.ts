@@ -1,6 +1,6 @@
 import { Schema, model } from 'mongoose'
 
-const TodoSchema = new Schema(
+const TaskSchema = new Schema(
   {
     description: {
       required: true,
@@ -21,4 +21,4 @@ const TodoSchema = new Schema(
   }
 )
 
-export default model('Todo', TodoSchema)
+export default model('Todo', TaskSchema)
