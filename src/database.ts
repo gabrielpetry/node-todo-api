@@ -7,6 +7,7 @@ class Database {
   private db_password = 'example'
 
   constructor() {}
+
   private SetupDb(): any {
     mongoose.connect(`mongodb://${this.db_host}:27017/${this.db_database}?authSource=admin`, {
       user: this.db_user,
