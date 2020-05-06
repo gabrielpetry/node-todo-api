@@ -17,5 +17,7 @@ export default {
     })
   },
 
+  async update(req, reply) {},
+
   async delete(req, reply) {},
 }
