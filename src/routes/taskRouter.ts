@@ -34,4 +34,21 @@ export const CreateTaskRouter = (server) => {
     },
     handler: taskController.updateOne,
   })
+
+  server.route({
+    method: 'DELETE',
+    url: '/api/books/:book_id/tasks/:task_id',
+    schema: {
+      body: {
+        type: 'null',
+      },
+      response: {
+        200: {
+          type: 'null',
+        },
+        ...errors,
+      },
+    },
+    handler: taskController.delete,
+  })
 }

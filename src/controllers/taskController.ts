@@ -39,5 +39,14 @@ export default {
     return reply.code(200).send({ task: taskUpdate })
   },
 
-  async delete(req, reply) {},
+  async delete(req, reply) {
+    const { book_id, task_id } = req.params
+    const deletedTask = await task.deleteOne({ _id: task_id }).catch((err) => err)
+
+    if (!deletedTask) {
+      return reply.code(400).send({ err: deletedTask })
+    }
+
+    return reply.code(200).send()
+  },
 }
