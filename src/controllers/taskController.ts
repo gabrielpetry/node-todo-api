@@ -17,7 +17,27 @@ export default {
     })
   },
 
-  async update(req, reply) {},
+  async updateOne(req, reply) {
+    const { book_id, task_id } = req.params
+    const { description, completed } = req.body
+    const taskUpdate = await task
+      .updateOne(
+        { _id: task_id },
+        {
+          $set: {
+            description,
+            completed,
+          },
+        }
+      )
+      .catch((err) => err)
+
+    if (!taskUpdate) {
+      return reply.code(400).send({ err: taskUpdate })
+    }
+
+    return reply.code(200).send({ task: taskUpdate })
+  },
 
   async delete(req, reply) {},
 }
