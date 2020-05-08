@@ -12,4 +12,5 @@ COPY ./src /app/src
 
 EXPOSE $PORT
 
+
 CMD ["npm", "run", "start"]

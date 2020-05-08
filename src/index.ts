@@ -4,6 +4,7 @@ import cors from 'fastify-cors'
 import Database from './database'
 import { CreateBookRouter } from './routes/bookRouter'
 import { CreateTaskRouter } from './routes/taskRouter'
+import { CreateUserRouter } from './routes/userRouter'
 
 const server = fastify()
 const db = new Database()
@@ -16,6 +17,8 @@ server.register(cors, { origin: '*' })
 CreateTaskRouter(server)
 
 CreateBookRouter(server)
+
+CreateUserRouter(server)
 
 server
   .listen(3000, '0.0.0.0')
