@@ -30,6 +30,5 @@ export default {
 
       return done()
     })
-    done()
   },
 }
