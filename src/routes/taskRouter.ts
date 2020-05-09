@@ -4,21 +4,24 @@ import { success } from '../schemas/success'
 import errors from '../schemas/error'
 import taskController from '../controllers/taskController'
 
-export const CreateTaskRouter = (server) => {
+export const CreateTaskRouter = (server, middleware) => {
   server.route({
     method: 'GET',
+    preHandler: middleware,
     url: '/api/books/:_id/tasks',
     handler: taskController.getTasks,
   })
 
   server.route({
     method: 'POST',
+    preHandler: middleware,
     url: '/api/books/:_id/tasks',
     handler: taskController.store,
   })
 
   server.route({
     method: 'PUT',
+    preHandler: middleware,
     url: '/api/books/:book_id/tasks/:task_id',
     schema: {
       body: {
@@ -37,6 +40,7 @@ export const CreateTaskRouter = (server) => {
 
   server.route({
     method: 'DELETE',
+    preHandler: middleware,
     url: '/api/books/:book_id/tasks/:task_id',
     schema: {
       body: {
