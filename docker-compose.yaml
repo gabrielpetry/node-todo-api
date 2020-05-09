@@ -14,6 +14,7 @@ services:
       - 3000:3000
     environment:
       - PORT=3000
+      - APP_SECRET=1j2k12jh41jkh24jk1
     links:
       - mongo
     depends_on:

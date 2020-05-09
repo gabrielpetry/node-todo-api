@@ -8,4 +8,10 @@ export const CreateUserRouter = (server) => {
     url: '/api/users',
     handler: userController.store,
   })
+
+  server.route({
+    method: 'POST',
+    url: '/api/users/auth',
+    handler: userController.getJwt,
+  })
 }
