@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "npm run build && npm run prod:serve",
+    "start": "npm install && npm run build && npm run prod:serve",
     "build": "tsc",
     "prod:serve": "node dist/index.js",
     "dev": "nodemon -L --exec sucrase-node ./src/index.ts"
