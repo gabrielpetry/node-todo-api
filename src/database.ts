@@ -1,4 +1,4 @@
-import mongoose from 'mongoose'
+import * as mongoose from 'mongoose'
 
 class Database {
   private db_host = 'mongo'
@@ -8,8 +8,14 @@ class Database {
 
   constructor() {}
 
-  private SetupDb(): any {
-    mongoose.connect(`mongodb://${this.db_host}:27017/${this.db_database}?authSource=admin`, {
+  public SetupDb(): any {
+    let mongo_url = ''
+    if (process.env.MONGO_URL) {
+      mongo_url = process.env.MONGO_URL
+    } else {
+      mongo_url = `mongodb://${this.db_host}:27017/${this.db_database}?authSource=admin`
+    }
+    mongoose.connect(mongo_url, {
       user: this.db_user,
       pass: this.db_password,
       useNewUrlParser: true,
