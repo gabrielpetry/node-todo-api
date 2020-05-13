@@ -18,9 +18,9 @@ class Database {
     mongoose.connect(mongo_url, {
       // user: this.db_user,
       // pass: this.db_password,
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      useCreateIndex: true,
+      // useNewUrlParser: true,
+      // useUnifiedTopology: true,
+      // useCreateIndex: true,
     })
     console.log(this.db_user)
     console.log(this.db_password)
