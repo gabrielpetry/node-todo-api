@@ -15,12 +15,13 @@ class Database {
     } else {
       mongo_url = `mongodb://${this.db_host}:27017/${this.db_database}?authSource=admin`
     }
+    console.log("mongo_url:", mongo_url)
     mongoose.connect(mongo_url, {
       // user: this.db_user,
       // pass: this.db_password,
       // useNewUrlParser: true,
       // useUnifiedTopology: true,
-      // useCreateIndex: true,
+      useCreateIndex: true,
     })
     console.log(this.db_user)
     console.log(this.db_password)
