@@ -16,8 +16,8 @@ class Database {
       mongo_url = `mongodb://${this.db_host}:27017/${this.db_database}?authSource=admin`
     }
     mongoose.connect(mongo_url, {
-      user: this.db_user,
-      pass: this.db_password,
+      // user: this.db_user,
+      // pass: this.db_password,
       useNewUrlParser: true,
       useUnifiedTopology: true,
       useCreateIndex: true,
