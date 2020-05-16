@@ -6,6 +6,7 @@ import { CreateBookRouter } from './routes/bookRouter'
 import { CreateTaskRouter } from './routes/taskRouter'
 import { CreateUserRouter } from './routes/userRouter'
 import auth from './middlewares/auth'
+import 'reflect-metadata'
 
 const server = fastify()
 const db = new Database()
