@@ -4,3 +4,4 @@ mongo-data/
 .env
 dist/
 .env.production
+ormconfig.json
