@@ -16,29 +16,47 @@ services:
       - PORT=3000
       - APP_SECRET=1j2k12jh41jkh24jk1
     links:
-      - mongo
+      - pgsql
     depends_on:
-      - mongo
+      - pgsql
 
-  mongo:
-    image: mongo:latest
+  pgsql:
+    image: postgres
     restart: unless-stopped
     environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: example
+      POSTGRES_PASSWORD: example
+      POSTGRES_USER: docker
+      POSTGRES_DB: docker
     volumes:
-      - mongo-data:/data/db
+      - postgres-data2:/data
 
-  mongo-express:
-    image: mongo-express
+  adminer:
+    image: adminer
     restart: always
     ports:
-      - 8081:8081
-    environment:
-      ME_CONFIG_MONGODB_ADMINUSERNAME: root
-      ME_CONFIG_MONGODB_ADMINPASSWORD: example
+      - 8080:8080
     links:
-      - mongo
+      - pgsql
+
+  # mongo:
+  #   image: mongo:latest
+  #   restart: unless-stopped
+  #   environment:
+  #     MONGO_INITDB_ROOT_USERNAME: root
+  #     MONGO_INITDB_ROOT_PASSWORD: example
+  #   volumes:
+  #     - mongo-data:/data/db
+  # mongo-express:
+  #   image: mongo-express
+  #   restart: always
+  #   ports:
+  #     - 8081:8081
+  #   environment:
+  #     ME_CONFIG_MONGODB_ADMINUSERNAME: root
+  #     ME_CONFIG_MONGODB_ADMINPASSWORD: example
+  #   links:
+  #     - mongo
 
 volumes:
   mongo-data:
+  postgres-data2:
