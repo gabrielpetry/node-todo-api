@@ -21,7 +21,7 @@ CreateBookRouter(server, auth.authenticate)
 
 CreateUserRouter(server)
 
-const PORT = process.env.PORT || 9000
+const PORT = parseInt(process.env.PORT) || 9000
 server
   .listen(PORT, '0.0.0.0')
   .then((url) => {
