@@ -5,11 +5,11 @@ import { Task } from './entity/Task'
 
 createConnection({
   type: 'postgres',
-  host: 'localhost',
-  port: 5432,
-  username: 'docker',
-  password: 'example',
-  database: 'docker',
+  host: process.env.DB_HOST || 'localhost',
+  port: parseInt(process.env.DB_PORT) || 5432,
+  username: process.env.DB_USER || 'docker',
+  password: process.env.DB_PASSWD || 'example',
+  database: process.env.DB_DATABASE || 'docker',
   synchronize: true,
   logging: false,
   entities: [User, Book, Task],
