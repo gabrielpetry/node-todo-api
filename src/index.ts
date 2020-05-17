@@ -21,8 +21,9 @@ CreateBookRouter(server, auth.authenticate)
 
 CreateUserRouter(server)
 
+const PORT = process.env.PORT || 9000
 server
-  .listen(3000, '0.0.0.0')
+  .listen(PORT, '0.0.0.0')
   .then((url) => {
     console.log(`listening on ${url}`)
   })
