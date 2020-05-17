@@ -1,10 +1,12 @@
-import bookController from '../controllers/bookController'
 import { bookSchema } from '../schemas/book'
 import { success } from '../schemas/success'
 import errors from '../schemas/error'
 import auth from '../middlewares/auth'
+import BookController from '../controllers/bookController'
 
 export const CreateBookRouter = (server, middleware) => {
+  const bookController = new BookController()
+
   server.route({
     method: 'GET',
     url: '/api/books',
@@ -33,7 +35,7 @@ export const CreateBookRouter = (server, middleware) => {
 
   server.route({
     method: 'DELETE',
-    url: '/api/books/:_id',
+    url: '/api/books/:id',
     preHandler: middleware,
     schema: {
       body: {

@@ -1,10 +1,10 @@
-import jwt from 'jsonwebtoken'
-import user from '../models/user'
+import * as jwt from 'jsonwebtoken'
+import UserRepository from '../repositories/UserRepository'
 
-const appSecret = process.env.APP_SECRET
+const appSecret = process.env.APP_SECRET || `batmanIsOurSavior42`
 
 export default {
-  async authenticate(req, reply, done) {
+  authenticate(req, reply, done) {
     // reply.send({ err: 1 })
     const authHeader = req.headers.authorization
 
@@ -18,17 +18,18 @@ export default {
 
     if (!/^Bearer$/i.test(scheme)) return reply.status(401).send({ error: 'Malformed token' })
 
-    jwt.verify(token, appSecret, async (error, decoded) => {
+    return jwt.verify(token, appSecret, async (error, decoded) => {
       if (error) return reply.code(401).send({ error: 'Invalid token' })
 
-      let _id = decoded.id
-      const userModel = await user.findOne({ _id })
+      const id: number = decoded.id
+      const userRepository = new UserRepository()
 
-      if (!userModel) return reply.code(401).send({ error: 'Invalid user' })
+      const user = await userRepository.findOne({ id })
 
-      req.user = userModel
-
-      return done()
+      if (!user) return reply.code(401).send({ error: 'Invalid user' })
+      user.clearPassword()
+      req.user = user
+      return
     })
   },
 }

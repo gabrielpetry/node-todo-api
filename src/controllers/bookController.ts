@@ -1,26 +1,34 @@
-// export const getBooks = async (req, res) => {
-// return { ok: true }
-// }
-import book from '../models/book'
+import { Book } from '../entity/Book'
+import BookRepository from '../repositories/BookRepository'
+import { User } from '../entity/User'
 
-export default {
-  async getBooks(req, reply) {
-    const books = await book.find()
-    return { success: true, books }
-  },
+export default class BookController {
+  public async getBooks(req, reply) {
+    // const books = await book.find()
+    const bookRepository = new BookRepository()
+    const books = await bookRepository.find({ user: req.user })
+    return { success: true, books, count: books.length }
+  }
 
-  async store(req, reply) {
+  public async store(req, reply) {
     const { name, description, active = true } = req.body
+    const bookRepository = new BookRepository()
 
-    const books = await book.create({ name, description, active }, (err, book) => {
-      if (err) return reply.code(400).send(err)
-      return reply.code(201).send()
-    })
-  },
+    const book = await bookRepository.save({ name, description, active, user: req.user })
 
-  async delete(req, reply) {
-    const { _id } = req.params
-    await book.deleteOne({ _id })
-    return reply.code(204).send()
-  },
+    return book
+  }
+
+  public async delete(req, reply) {
+    const { id } = req.params
+    const bookRepository = new BookRepository()
+    await bookRepository
+      .findByIdAndDelete(id)
+      .then((book) => {
+        console.log(id, book)
+        reply.code(204).send()
+        // return book
+      })
+      .catch((err) => reply.code(500).send(err))
+  }
 }

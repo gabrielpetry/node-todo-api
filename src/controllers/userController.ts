@@ -1,34 +1,56 @@
-import user from '../models/user'
-import jwt from 'jsonwebtoken'
+import * as jwt from 'jsonwebtoken'
+import { User } from '../entity/User'
+import UserRepository from '../repositories/UserRepository'
 
-const appSecret = process.env.APP_SECRET
+const appSecret = process.env.APP_SECRET || `batmanIsOurSavior42`
 
-export default {
-  async store(req, reply) {
+export default class UserController {
+  public async store(req, reply) {
     const { username, email, password } = req.body
-    user.create({ username, email, password }, (err, user) => {
-      if (err) return reply.code(400).send({ err })
-      reply.code(201).send({ user })
-    })
-  },
 
-  async getJwt(req, reply) {
+    const user = new User()
+
+    user.username = username
+    user.email = email
+    user.password = password
+
+    const userRepo = new UserRepository()
+
+    return userRepo
+      .save(user)
+      .then((post) => post)
+      .catch((err) => err)
+  }
+
+  async get(req, reply) {
+    return 'me'
+  }
+
+  public async getJwt(req, reply) {
     const { username, password } = req.body
-    const userModel = await user.findOne({ username })
-    if (!user || user.length < 1) {
+    const userRepo = new UserRepository()
+
+    const user = await userRepo.findOne({ username })
+
+    if (!user) {
       return reply.code(400).send({ err: 'User not found' })
     }
-    await userModel.comparePassword(password, (err, isMatch) => {
-      if (err) return reply.code(400).send({ err })
 
-      // if password not matching return error
-      if (!isMatch) return reply.code(400).send({ err: 'Incorrect password' })
-      userModel.password = undefined
-      // if ok return the information + token
-      return reply.code(200).send({
-        userModel,
-        token: jwt.sign({ id: userModel._id }, appSecret),
+    const token = jwt.sign({ id: user.id }, appSecret)
+
+    return user
+      .comparePasswords(password)
+      .then((isMatch) => {
+        user.clearPassword()
+        return reply.code(200).send({
+          user,
+          token,
+        })
       })
-    })
-  },
+      .catch((err) => {
+        return reply.code(400).send(err)
+      })
+
+    return 2
+  }
 }
