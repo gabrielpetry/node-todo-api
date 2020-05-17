@@ -30,7 +30,7 @@ export default class UserController {
     const { username, password } = req.body
     const userRepo = new UserRepository()
 
-    const user = await userRepo.findOne({ username })
+    const user = await userRepo.findOne({ where: { username } })
 
     if (!user) {
       return reply.code(400).send({ err: 'User not found' })

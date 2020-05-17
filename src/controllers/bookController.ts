@@ -6,7 +6,7 @@ export default class BookController {
   public async getBooks(req, reply) {
     // const books = await book.find()
     const bookRepository = new BookRepository()
-    const books = await bookRepository.find({ user: req.user })
+    const books = await bookRepository.find({ where: { user: req.user } })
     return { success: true, books, count: books.length }
   }
 
@@ -16,7 +16,7 @@ export default class BookController {
 
     const book = await bookRepository.save({ name, description, active, user: req.user })
 
-    return book
+    return reply.code(201).send(book)
   }
 
   public async delete(req, reply) {

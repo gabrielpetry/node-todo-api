@@ -24,7 +24,7 @@ export default {
       const id: number = decoded.id
       const userRepository = new UserRepository()
 
-      const user = await userRepository.findOne({ id })
+      const user = await userRepository.findOne({ where: { id } })
 
       if (!user) return reply.code(401).send({ error: 'Invalid user' })
       user.clearPassword()

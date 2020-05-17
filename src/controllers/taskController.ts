@@ -13,7 +13,7 @@ export default class TaskController {
       return reply.code(404).send({ err: 'Book does not exists' })
     }
 
-    const tasks = await taskRepository.find({ book })
+    const tasks = await taskRepository.find({ where: { book } })
     return reply.send({ tasks })
   }
 
@@ -26,8 +26,9 @@ export default class TaskController {
     const taskRepository = new TaskRepository()
 
     // check book exsits
-
+    console.log(book_id)
     const book = await bookRepository.findOne(book_id)
+    console.log(book)
 
     if (!book) {
       return reply.code(404).send({ err: 'Book does not exists' })
