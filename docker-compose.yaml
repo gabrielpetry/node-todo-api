@@ -13,10 +13,10 @@ services:
       - ./package-lock.json:/app/package-lock.json
       - ./tsconfig.json:/app/tsconfig.json
     ports:
-      - 3000:3000
+      - 9000:9000
     environment:
-      - PORT=3000
-      - APP_SECRET=1j2k12jh41jkh24jk1
+      - PORT=9000
+      - APP_SECRET=${APP_SECRET}
     links:
       - pgsql
     depends_on:
