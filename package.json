@@ -8,7 +8,7 @@
     "start": "npm run build && npm run prod:serve",
     "build": "tsc",
     "prod:serve": "node dist/index.js",
-    "tsc:watch": "nodemon -e js, json -L --exec node ./dist/index.js",
+    "tsc:watch": "nodemon -e js,json -L --exec node dist/index.js",
     "dev": "nodemon -L --exec sucrase-node ./src/index.ts",
     "sucrase": "sucrase-node"
   },
@@ -30,6 +30,7 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.9.10",
     "pg": "^8.2.1",
+    "ts-node": "^8.10.1",
     "typeorm": "^0.2.24"
   }
 }
