@@ -15,6 +15,7 @@ import * as bcrypt from 'bcryptjs'
 const SALT_WORK_FACTOR = 10
 
 @Entity()
+@Unique(['username', 'email'])
 export class User {
   @PrimaryGeneratedColumn()
   public id: number
