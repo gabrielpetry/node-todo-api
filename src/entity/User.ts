@@ -8,6 +8,7 @@ import {
   BeforeInsert,
   BeforeUpdate,
   AfterLoad,
+  Unique,
 } from 'typeorm'
 import { Book } from './Book'
 import * as bcrypt from 'bcryptjs'
