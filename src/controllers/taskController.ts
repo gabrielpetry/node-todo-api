@@ -37,6 +37,10 @@ export default class TaskController {
     await taskRepository
       .save({ description, completed, book })
       .then((task) => {
+        req.websocketOptions = {
+          emitMessage: 'newTask',
+          emitBody: task,
+        }
         reply.code(201).send({ task })
       })
       .catch((err) => {
